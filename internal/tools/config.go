@@ -17,6 +17,8 @@ type Config struct {
 }
 
 type DatabaseConfig struct {
+	Provider string `json:"provider"`
+
 	Host     string `json:"host"`
 	Port     int    `json:"port"`
 	User     string `json:"user"`
