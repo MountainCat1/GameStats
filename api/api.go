@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"errors"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 )
@@ -36,7 +37,7 @@ var RequestErrorHandler = func(w http.ResponseWriter, err error) {
 	writeError(w, err.Error(), http.StatusBadRequest)
 }
 
-var UnanthorizedErrorHandler = func(w http.ResponseWriter, err error) {
+var UnauthorizedErrorHandler = func(w http.ResponseWriter, err error) {
 	writeError(w, err.Error(), http.StatusUnauthorized)
 }
 
@@ -48,3 +49,5 @@ var InternalErrorHandler = func(w http.ResponseWriter, err error) {
 var NotFoundErrorHandler = func(w http.ResponseWriter, err error) {
 	writeError(w, err.Error(), http.StatusNotFound)
 }
+
+var NotFoundError = errors.New("Not Found")

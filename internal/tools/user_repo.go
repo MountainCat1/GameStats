@@ -27,7 +27,7 @@ func (repo *UserRepo) GetUserLoginDetails(username string) (*entities.LoginDetai
 
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		// Record not found
-		return nil, NotFoundError
+		return nil, nil
 	}
 
 	// Other error occurred

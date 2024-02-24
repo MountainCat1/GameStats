@@ -2,9 +2,7 @@ package handlers
 
 import (
 	"GameStats/api"
-	"GameStats/internal/tools"
 	"encoding/json"
-	"errors"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 )
@@ -16,12 +14,12 @@ func (handler Handler) GetUserDetails(w http.ResponseWriter, r *http.Request) {
 
 	loginDetails, err := userRepo.GetUserLoginDetails(username)
 	if err != nil {
-		if errors.Is(err, tools.NotFoundError) {
-			api.NotFoundErrorHandler(w, err)
-			return
-		}
-
 		api.RequestErrorHandler(w, err)
+		return
+	}
+
+	if loginDetails == nil {
+		api.NotFoundErrorHandler(w, api.NotFoundError)
 		return
 	}
 

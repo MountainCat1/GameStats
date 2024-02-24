@@ -13,12 +13,12 @@ func (handler *Handler) Authorization(next http.Handler) http.Handler {
 		var username, password, ok = r.BasicAuth()
 
 		if !ok {
-			api.UnanthorizedErrorHandler(responseWriter, UnAuthorizedError)
+			api.UnauthorizedErrorHandler(responseWriter, UnAuthorizedError)
 			return
 		}
 
 		if username == "" || password == "" {
-			api.UnanthorizedErrorHandler(responseWriter, UnAuthorizedError)
+			api.UnauthorizedErrorHandler(responseWriter, UnAuthorizedError)
 			return
 		}
 
@@ -30,7 +30,7 @@ func (handler *Handler) Authorization(next http.Handler) http.Handler {
 		}
 
 		if loginDetails == nil || (password != (*loginDetails).AuthToken) {
-			api.UnanthorizedErrorHandler(responseWriter, UnAuthorizedError)
+			api.UnauthorizedErrorHandler(responseWriter, UnAuthorizedError)
 			return
 		}
 
