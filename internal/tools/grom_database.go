@@ -3,6 +3,7 @@ package tools
 import (
 	"GameStats/internal/entities"
 	"errors"
+	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -35,8 +36,11 @@ func NewGormDb(cfg Config) (*gorm.DB, error) {
 
 	switch cfg.Database.Provider {
 	case "sqlite":
-		var fileName = cfg.Database.DBName + ".db"
-		db, err = gorm.Open(sqlite.Open(fileName), &gorm.Config{})
+		var connectionString = cfg.Database.ConnectionString
+		db, err = gorm.Open(sqlite.Open(connectionString), &gorm.Config{})
+	case "mysql":
+		var connectionString = cfg.Database.ConnectionString
+		db, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{})
 	default:
 		return nil, ErrInvalidDatabaseProvider
 	}

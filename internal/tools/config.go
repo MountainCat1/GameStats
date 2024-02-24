@@ -18,13 +18,8 @@ type Config struct {
 }
 
 type DatabaseConfig struct {
-	Provider string `json:"provider"`
-
-	Host     string `json:"host"`
-	Port     int    `json:"port"`
-	User     string `json:"user"`
-	Password string `json:"password"`
-	DBName   string `json:"dbname"`
+	Provider         string `json:"provider"`
+	ConnectionString string `json:"connectionString"`
 }
 
 // ConfigNotFoundError is the error returned when the configuration file is not found.
