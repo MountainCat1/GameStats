@@ -1,14 +1,14 @@
 package middleware
 
 import (
-	"GameStats/api"
+	"GameStats.Api/api"
 	"errors"
 	"net/http"
 )
 
 var UnAuthorizedError = errors.New("invalid token")
 
-func (handler *Handler) Authorization(next http.Handler) http.Handler {
+func (h *Handler) Authorization(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(responseWriter http.ResponseWriter, r *http.Request) {
 		var username, password, ok = r.BasicAuth()
 
@@ -22,8 +22,7 @@ func (handler *Handler) Authorization(next http.Handler) http.Handler {
 			return
 		}
 
-		var userRepo = handler.UserRepo
-		var loginDetails, err = userRepo.GetUserLoginDetails(username)
+		var loginDetails, err = h.UserRepo.GetUserLoginDetails(username)
 		if err != nil {
 			api.InternalErrorHandler(responseWriter, err)
 			return
