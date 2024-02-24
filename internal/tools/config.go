@@ -3,6 +3,7 @@ package tools
 import (
 	"encoding/json"
 	"fmt"
+	log "github.com/sirupsen/logrus"
 	"os"
 	"path/filepath"
 )
@@ -33,6 +34,7 @@ var ConfigNotFoundError = fmt.Errorf("config file not found")
 func LoadConfig() (Config, error) {
 	configFileName := getConfigFilePath()
 
+	log.Info("Loading config from ", configFileName)
 	file, err := os.Open(configFileName)
 	if err != nil {
 		if os.IsNotExist(err) {
