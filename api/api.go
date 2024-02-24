@@ -15,6 +15,10 @@ type Error struct {
 	ResponseCode int    `json:"responseCode"`
 }
 
+func (e Error) Error() string {
+	return e.Message
+}
+
 func writeError(w http.ResponseWriter, message string, code int) {
 	response := Error{
 		Message:      message,
@@ -27,11 +31,14 @@ func writeError(w http.ResponseWriter, message string, code int) {
 	json.NewEncoder(w).Encode(response)
 }
 
-var (
-	RequestErrorHandler = func(w http.ResponseWriter, err error) {
-		writeError(w, err.Error(), http.StatusBadRequest)
-	}
-	InternalErrorHandler = func(w http.ResponseWriter, err error) {
-		writeError(w, "Something went wrong...", http.StatusInternalServerError)
-	}
-)
+var RequestErrorHandler = func(w http.ResponseWriter, err error) {
+	writeError(w, err.Error(), http.StatusBadRequest)
+}
+
+var InternalErrorHandler = func(w http.ResponseWriter, err error) {
+	writeError(w, "Something went wrong...", http.StatusInternalServerError)
+}
+
+var NotFoundErrorHandler = func(w http.ResponseWriter, err error) {
+	writeError(w, err.Error(), http.StatusNotFound)
+}

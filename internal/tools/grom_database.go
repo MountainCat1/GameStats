@@ -1,32 +1,23 @@
 package tools
 
 import (
+	"GameStats/internal/entities"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
 type gormDb struct {
-	*gorm.DB
+	DB *gorm.DB
 }
 
-func (d *gormDb) GetUserLoginDetails(username string) *LoginDetails {
-	var db *gorm.DB
-	db, _ = gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	var loginDetails LoginDetails
-	db.First(&loginDetails, "username = ?", username)
-
-	return &loginDetails
-}
-
-func (d *gormDb) SetupDatabase() error {
-	var dsn string = "test.db"
+func (d *gormDb) SetupDatabase(cfg Config) error {
+	var dsn string = cfg.Database.DBName + ".db"
 	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return err
 	}
 
-	err = db.AutoMigrate()
+	err = db.AutoMigrate(&entities.LoginDetails{})
 	if err != nil {
 		return err
 	}

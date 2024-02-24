@@ -4,22 +4,26 @@ import (
 	"GameStats/api"
 	"GameStats/internal/tools"
 	"encoding/json"
+	"errors"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 )
 
-func GetUserDetails(w http.ResponseWriter, r *http.Request) {
-	var database *tools.DatabaseInterface
-	database, err := tools.NewDatabase()
-	if err != nil {
-		api.InternalErrorHandler(w, err)
-		return
-	}
+func (handler Handler) GetUserDetails(w http.ResponseWriter, r *http.Request) {
+	userRepo := *handler.UserRepo
 
 	var username string = r.URL.Query().Get("username")
 
-	var loginDetails *tools.LoginDetails
-	loginDetails = (*database).GetUserLoginDetails(username)
+	loginDetails, err := userRepo.GetUserLoginDetails(username)
+	if err != nil {
+		if errors.Is(err, tools.NotFoundError) {
+			api.NotFoundErrorHandler(w, err)
+			return
+		}
+
+		api.RequestErrorHandler(w, err)
+		return
+	}
 
 	var response = api.UserDetailsResponse{
 		Username:        (*loginDetails).Username,

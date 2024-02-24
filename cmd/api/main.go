@@ -2,6 +2,7 @@ package main
 
 import (
 	"GameStats/internal/handlers"
+	"GameStats/internal/tools"
 	"fmt"
 	"github.com/go-chi/chi"
 	log "github.com/sirupsen/logrus"
@@ -10,13 +11,30 @@ import (
 
 func main() {
 	log.SetReportCaller(true)
+
+	config, err := tools.LoadConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	var r *chi.Mux = chi.NewRouter()
 
-	handlers.Handle(r)
+	database, err := tools.NewDatabase(config)
+	if err != nil {
+		log.Fatal(err)
+	}
+	userRepo := tools.NewUserRepo(database)
 
-	fmt.Print("Starting API on port 8080...")
+	var handler = handlers.Handler{
+		UserRepo: userRepo,
+	}
 
-	err := http.ListenAndServe(":8080", r)
+	(&handler).Handle(r)
+
+	fmt.Printf("Starting API on port %v...", config.Server.Port)
+
+	port := fmt.Sprintf(":%d", config.Server.Port)
+	err = http.ListenAndServe(port, r)
 
 	if err != nil {
 		log.Fatal(err)

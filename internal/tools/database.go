@@ -1,22 +1,21 @@
 package tools
 
-type LoginDetails struct {
-	Username        string `json:"username"`
-	AuthToken       string `json:"authToken"`
-	FavouriteNumber int    `json:"favouriteNumber"`
+import "gorm.io/gorm"
+
+type Database struct {
+	gorm.DB
 }
 
-type DatabaseInterface interface {
-	GetUserLoginDetails(username string) *LoginDetails
-	SetupDatabase() error
-}
+func NewDatabase(cfg Config) (*Database, error) {
+	var gormDb = &gormDb{}
 
-func NewDatabase() (*DatabaseInterface, error) {
-	var database DatabaseInterface = &gormDb{}
-
-	var err error = database.SetupDatabase()
+	var err error = gormDb.SetupDatabase(cfg)
 	if err != nil {
 		return nil, err
+	}
+
+	var database = Database{
+		DB: *gormDb.DB, // TODO should it be a pointer?
 	}
 
 	return &database, nil
