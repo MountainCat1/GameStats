@@ -1,35 +1,39 @@
 package middleware
 
-//
-//import (
-//	"GameStats/api"
-//	"errors"
-//	log "github.com/sirupsen/logrus"
-//	"net/http"
-//)
-//
-//var UnAuthorizedError = errors.New("invalid token")
-//
-//func (handler MiddlewareHandler) Authorization(next http.Handler) http.Handler {
-//	return http.HandlerFunc(func(responseWriter http.ResponseWriter, r *http.Request) {
-//		var username string = r.URL.Query().Get("username")
-//		var token string = r.Header.Get("Authorization")
-//
-//		if username == "" || token == "" {
-//			log.Error(UnAuthorizedError)
-//			api.RequestErrorHandler(responseWriter, UnAuthorizedError)
-//			return
-//		}
-//
-//		var loginDetails = handler.DB.
-//		loginDetails = (*database).GetUserLoginDetails(username)
-//
-//		if loginDetails == nil || (token != (*loginDetails).AuthToken) {
-//			log.Error(UnAuthorizedError)
-//			api.RequestErrorHandler(responseWriter, UnAuthorizedError)
-//			return
-//		}
-//
-//		next.ServeHTTP(responseWriter, r)
-//	})
-//}
+import (
+	"GameStats/api"
+	"errors"
+	"net/http"
+)
+
+var UnAuthorizedError = errors.New("invalid token")
+
+func (handler *Handler) Authorization(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(responseWriter http.ResponseWriter, r *http.Request) {
+		var username, password, ok = r.BasicAuth()
+
+		if !ok {
+			api.UnanthorizedErrorHandler(responseWriter, UnAuthorizedError)
+			return
+		}
+
+		if username == "" || password == "" {
+			api.UnanthorizedErrorHandler(responseWriter, UnAuthorizedError)
+			return
+		}
+
+		var userRepo = handler.UserRepo
+		var loginDetails, err = userRepo.GetUserLoginDetails(username)
+		if err != nil {
+			api.InternalErrorHandler(responseWriter, err)
+			return
+		}
+
+		if loginDetails == nil || (password != (*loginDetails).AuthToken) {
+			api.UnanthorizedErrorHandler(responseWriter, UnAuthorizedError)
+			return
+		}
+
+		next.ServeHTTP(responseWriter, r)
+	})
+}

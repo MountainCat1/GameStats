@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 )
 
@@ -35,7 +36,12 @@ var RequestErrorHandler = func(w http.ResponseWriter, err error) {
 	writeError(w, err.Error(), http.StatusBadRequest)
 }
 
+var UnanthorizedErrorHandler = func(w http.ResponseWriter, err error) {
+	writeError(w, err.Error(), http.StatusUnauthorized)
+}
+
 var InternalErrorHandler = func(w http.ResponseWriter, err error) {
+	log.Error(err.Error())
 	writeError(w, "Something went wrong...", http.StatusInternalServerError)
 }
 
