@@ -2,7 +2,7 @@ package main
 
 import (
 	"GameStats.Api/internal/handlers"
-	"GameStats.Api/internal/tools"
+	"GameStats.Infrastructure/tools"
 	"fmt"
 	"github.com/go-chi/chi"
 	log "github.com/sirupsen/logrus"

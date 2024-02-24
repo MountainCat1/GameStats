@@ -5,10 +5,6 @@ go 1.21.3
 require (
 	github.com/go-chi/chi v1.5.5
 	github.com/sirupsen/logrus v1.9.3
-	gorm.io/driver/mysql v1.5.4
-	gorm.io/driver/sqlite v1.5.5
-	gorm.io/gorm v1.25.7
-
 )
 
 require (
@@ -23,5 +19,8 @@ require (
 )
 
 require GameStats.Domain v0.0.0
+require GameStats.Infrastructure v0.0.0
 
 replace GameStats.Domain => ../GameStats.Domain
+
+replace GameStats.Infrastructure => ../GameStats.Infrastructure
