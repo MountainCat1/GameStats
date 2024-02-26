@@ -1,6 +1,6 @@
 module GameStats.Infrastructure
 
-go 1.21.3
+go 1.21
 
 require (
 	github.com/sirupsen/logrus v1.9.3
@@ -9,7 +9,6 @@ require (
 	gorm.io/driver/sqlite v1.5.5
 	gorm.io/gorm v1.25.7
 )
-
 
 require (
 	github.com/go-sql-driver/mysql v1.7.0 // indirect

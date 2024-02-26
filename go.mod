@@ -1,7 +1,9 @@
 module GameStats
 
-go 1.21.3
+go 1.21
 
-
-require GameStats.Domain v0.0.0
 replace GameStats.Domain => ../GameStats.Domain
+
+replace GameStats.Infrastructure => ../GameStats.Infrastructure
+
+replace GameStats.Api => ../GameStats.Api

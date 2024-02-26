@@ -1,6 +1,6 @@
 module GameStats.Api
 
-go 1.21.3
+go 1.21
 
 require (
 	github.com/go-chi/chi v1.5.5
@@ -19,6 +19,7 @@ require (
 )
 
 require GameStats.Domain v0.0.0
+
 require GameStats.Infrastructure v0.0.0
 
 replace GameStats.Domain => ../GameStats.Domain
