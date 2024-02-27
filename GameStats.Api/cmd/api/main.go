@@ -42,7 +42,7 @@ func main() {
 
 	(&handler).Handle(r)
 
-	fmt.Printf("Starting API on port %v...", config.Server.Port)
+	fmt.Printf("Starting API on port %v... \n", config.Server.Port)
 
 	port := fmt.Sprintf(":%d", config.Server.Port)
 	err = http.ListenAndServe(port, r)
