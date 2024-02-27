@@ -1,3 +1,13 @@
+// @title GameStats API
+// @description This is the GameStats API server.
+// @version 1.0
+// @BasePath /api
+
+// @Security
+// @SecurityDefinitions.basic BasicAuth
+// -- @SecurityDefinitions.apiKey ApiKeyAuth
+// @in header
+// @name Authorization
 package main
 
 import (

@@ -1,0 +1,40 @@
+basePath: /api
+definitions:
+  api.UserDetailsResponse:
+    properties:
+      favouriteNumber:
+        type: integer
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is the GameStats API server.
+  title: GameStats API
+  version: "1.0"
+paths:
+  /test/super:
+    get:
+      consumes:
+      - application/json
+      description: get details of a user by username
+      parameters:
+      - description: Username
+        in: query
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UserDetailsResponse'
+      summary: Get user details
+      tags:
+      - users
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"

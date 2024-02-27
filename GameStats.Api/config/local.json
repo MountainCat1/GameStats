@@ -3,7 +3,7 @@
     "port": 8081
   },
   "database": {
-    "provider": "sqlite",
-    "connectionString": "mydatabase.db"
+    "provider": "mysql",
+    "connectionString": "root:password@tcp(host.docker.internal:3306)/mydatabase?charset=utf8&parseTime=True&loc=Local"
   }
 }

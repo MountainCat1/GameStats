@@ -1,10 +1,12 @@
 package handlers
 
 import (
+	_ "GameStats.Api/docs"
 	"GameStats.Api/internal/middleware"
 	"GameStats.Domain/repositories"
 	"github.com/go-chi/chi"
 	chimiddleware "github.com/go-chi/chi/middleware"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 type Handler struct {
@@ -16,10 +18,17 @@ func (h Handler) Handle(r *chi.Mux) {
 
 	r.Use(chimiddleware.StripSlashes)
 
-	r.Route("/test", func(r chi.Router) {
-		r.Use(middlewareHandler.Authorization)
+	r.Get("/swagger/*", httpSwagger.Handler(
+		httpSwagger.URL("/swagger/doc.json"), // The url pointing to API definition
+	))
 
-		r.Get("/super", h.GetUserDetails)
+	r.Route("/api", func(r chi.Router) {
+
+		r.Route("/test", func(r chi.Router) {
+			r.Use(middlewareHandler.Authorization)
+
+			r.Get("/super", h.GetUserDetails)
+		})
 	})
 }
 
