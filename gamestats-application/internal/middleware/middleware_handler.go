@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"GameStats.Domain/repositories"
+	"gamestats-domain/repositories"
 )
 
 type Handler struct {

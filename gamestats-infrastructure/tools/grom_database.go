@@ -1,8 +1,8 @@
 package tools
 
 import (
-	"GameStats.Domain/entities"
 	"errors"
+	"gamestats-domain/entities"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

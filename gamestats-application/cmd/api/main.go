@@ -13,8 +13,8 @@ package main
 
 import (
 	"GameStats.Api/internal/handlers"
-	"GameStats.Infrastructure/tools"
 	"fmt"
+	"gamestats-infrastructure/tools"
 	"github.com/go-chi/chi"
 	log "github.com/sirupsen/logrus"
 	"net/http"

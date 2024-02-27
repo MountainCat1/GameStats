@@ -3,7 +3,7 @@ package handlers
 import (
 	_ "GameStats.Api/docs"
 	"GameStats.Api/internal/middleware"
-	"GameStats.Domain/repositories"
+	"gamestats-domain/repositories"
 	"github.com/go-chi/chi"
 	chimiddleware "github.com/go-chi/chi/middleware"
 	httpSwagger "github.com/swaggo/http-swagger"

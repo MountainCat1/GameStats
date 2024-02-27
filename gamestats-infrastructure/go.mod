@@ -1,4 +1,4 @@
-module GameStats.Infrastructure
+module gamestats-intrastructure
 
 go 1.21
 
@@ -17,6 +17,6 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.17 // indirect
 )
 
-require GameStats.Domain v0.0.0
+require gamestats-domain v0.0.0
 
-replace GameStats.Domain => ../GameStats.Domain
+replace gamestats-domain => ./../gamestats-domain

@@ -1,9 +1,9 @@
 package tools
 
 import (
-	"GameStats.Domain/entities"
 	"errors"
 	"fmt"
+	"gamestats-domain/entities"
 	"gorm.io/gorm"
 )
 
