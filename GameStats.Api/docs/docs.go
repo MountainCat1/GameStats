@@ -9,6 +9,7 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
+        "termsOfService": "http://your-terms-of-service-url.com",
         "contact": {},
         "version": "{{.Version}}"
     },
@@ -17,6 +18,11 @@ const docTemplate = `{
     "paths": {
         "/test/super": {
             "get": {
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
                 "description": "get details of a user by username",
                 "consumes": [
                     "application/json"
@@ -62,7 +68,7 @@ const docTemplate = `{
         }
     },
     "securityDefinitions": {
-        "BasicAuth": {
+        "basicAuth": {
             "type": "basic"
         }
     }
@@ -74,8 +80,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "",
 	BasePath:         "/api",
 	Schemes:          []string{},
-	Title:            "GameStats API",
-	Description:      "This is the GameStats API server.",
+	Title:            "Your API Title",
+	Description:      "Your API Description",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

@@ -1,8 +1,9 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is the GameStats API server.",
-        "title": "GameStats API",
+        "description": "Your API Description",
+        "title": "Your API Title",
+        "termsOfService": "http://your-terms-of-service-url.com",
         "contact": {},
         "version": "1.0"
     },
@@ -10,6 +11,11 @@
     "paths": {
         "/test/super": {
             "get": {
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
                 "description": "get details of a user by username",
                 "consumes": [
                     "application/json"
@@ -55,7 +61,7 @@
         }
     },
     "securityDefinitions": {
-        "BasicAuth": {
+        "basicAuth": {
             "type": "basic"
         }
     }

@@ -1,13 +1,14 @@
-// @title GameStats API
-// @description This is the GameStats API server.
+// @title Your API Title
+// @description Your API Description
 // @version 1.0
+// @termsOfService http://your-terms-of-service-url.com
+
 // @BasePath /api
 
-// @Security
-// @SecurityDefinitions.basic BasicAuth
-// -- @SecurityDefinitions.apiKey ApiKeyAuth
+// @SecurityDefinitions.basic basicAuth
 // @in header
 // @name Authorization
+
 package main
 
 import (

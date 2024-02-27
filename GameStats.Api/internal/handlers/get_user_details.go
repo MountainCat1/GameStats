@@ -16,6 +16,7 @@ import (
 // @Produce  json
 // @Param username query string true "Username"
 // @Success 200 {object} api.UserDetailsResponse
+// @Security basicAuth
 // @Router /test/super [get]
 func (h Handler) GetUserDetails(w http.ResponseWriter, r *http.Request) {
 	// Ensure that h.UserRepo is a pointer and check it is not nil

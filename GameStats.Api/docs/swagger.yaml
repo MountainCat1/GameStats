@@ -9,8 +9,9 @@ definitions:
     type: object
 info:
   contact: {}
-  description: This is the GameStats API server.
-  title: GameStats API
+  description: Your API Description
+  termsOfService: http://your-terms-of-service-url.com
+  title: Your API Title
   version: "1.0"
 paths:
   /test/super:
@@ -31,10 +32,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/api.UserDetailsResponse'
+      security:
+      - basicAuth: []
       summary: Get user details
       tags:
       - users
 securityDefinitions:
-  BasicAuth:
+  basicAuth:
     type: basic
 swagger: "2.0"
