@@ -16,6 +16,6 @@ Plan in to later expand on it and maybe create some type of ranking and matchmak
 
 ### How to run:
 - Clone the repository
-- Run `docker-compose up` in the root directory
+- Run `docker compose up` in the root directory
 - Service will be available at `http://localhost:8080`
 - Swagger documentation will be available at `http://localhost:8080/swagger/index.html`
