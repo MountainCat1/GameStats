@@ -18,7 +18,7 @@ import (
 // @Success 200 {object} api.UserDetailsResponse
 // @Security basicAuth
 // @Router /test/super [get]
-func (h Handler) GetUserDetails(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) GetUserDetails(w http.ResponseWriter, r *http.Request) {
 	// Ensure that h.UserRepo is a pointer and check it is not nil
 	if h.UserRepo == nil {
 		api.InternalErrorHandler(w, fmt.Errorf("UserRepo is not initialized"))

@@ -13,7 +13,7 @@ type Handler struct {
 	UserRepo repositories.IUserDetailsRepo
 }
 
-func (h Handler) Handle(r *chi.Mux) {
+func (h *Handler) Handle(r *chi.Mux) {
 	middlewareHandler := h.CreateMiddlewareHandler()
 
 	r.Use(chimiddleware.StripSlashes)
