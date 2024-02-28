@@ -7,14 +7,14 @@
 
 // @SecurityDefinitions.basic basicAuth
 // @in header
-// @name Authorization
+// @name Authentication
 
 package main
 
 import (
-	"GameStats.Api/internal/handlers"
 	"fmt"
-	"gamestats-infrastructure/tools"
+	"gamestats-application/internal/handlers"
+	"gamestats-intrastructure/infrastructure"
 	"github.com/go-chi/chi"
 	log "github.com/sirupsen/logrus"
 	"net/http"
@@ -23,18 +23,18 @@ import (
 func main() {
 	log.SetReportCaller(true)
 
-	config, err := tools.LoadConfig()
+	config, err := infrastructure.LoadConfig()
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	var r *chi.Mux = chi.NewRouter()
 
-	database, err := tools.NewDatabase(config)
+	database, err := infrastructure.NewDatabase(config)
 	if err != nil {
 		log.Fatal(err)
 	}
-	userRepo := tools.NewUserRepo(database)
+	userRepo := infrastructure.NewUserRepo(database)
 
 	var handler = handlers.Handler{
 		UserRepo: userRepo,

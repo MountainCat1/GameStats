@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	"GameStats.Api/api"
 	"encoding/json"
 	"fmt"
+	"gamestats-application/api"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 )
@@ -17,7 +17,7 @@ import (
 // @Param username query string true "Username"
 // @Success 200 {object} api.UserDetailsResponse
 // @Security basicAuth
-// @Router /test/super [get]
+// @Router /users [get]
 func (h *Handler) GetUserDetails(w http.ResponseWriter, r *http.Request) {
 	// Ensure that h.UserRepo is a pointer and check it is not nil
 	if h.UserRepo == nil {
@@ -42,8 +42,7 @@ func (h *Handler) GetUserDetails(w http.ResponseWriter, r *http.Request) {
 
 	// No need to use the dereference operator as loginDetails is already a pointer
 	var response = api.UserDetailsResponse{
-		Username:        loginDetails.Username,
-		FavouriteNumber: loginDetails.FavouriteNumber,
+		Username: loginDetails.Username,
 	}
 
 	w.Header().Set("Content-Type", "application/json")

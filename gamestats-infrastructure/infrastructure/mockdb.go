@@ -1,4 +1,4 @@
-package tools
+package infrastructure
 
 //
 //import "time"
@@ -8,12 +8,12 @@ package tools
 //var mockLoginDetails = map[string]LoginDetails{
 //	"test": {
 //		Username:        "test",
-//		AuthToken:       "123",
+//		HashedPassword:       "123",
 //		FavouriteNumber: 5,
 //	},
 //	"test2": {
 //		Username:        "test2",
-//		AuthToken:       "1234",
+//		HashedPassword:       "1234",
 //		FavouriteNumber: 2,
 //	},
 //}

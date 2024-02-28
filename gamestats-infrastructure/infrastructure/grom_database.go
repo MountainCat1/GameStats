@@ -1,4 +1,4 @@
-package tools
+package infrastructure
 
 import (
 	"errors"
@@ -21,6 +21,11 @@ func (d *gormDb) SetupDatabase(cfg Config) error {
 	}
 
 	err = db.AutoMigrate(&entities.LoginDetails{})
+	if err != nil {
+		return err
+	}
+
+	err = db.AutoMigrate(&entities.User{})
 	if err != nil {
 		return err
 	}

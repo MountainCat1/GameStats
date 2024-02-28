@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	_ "GameStats.Api/docs"
-	"GameStats.Api/internal/middleware"
+	_ "gamestats-application/docs"
+	"gamestats-application/internal/middleware"
 	"gamestats-domain/repositories"
 	"github.com/go-chi/chi"
 	chimiddleware "github.com/go-chi/chi/middleware"
@@ -24,10 +24,9 @@ func (h *Handler) Handle(r *chi.Mux) {
 
 	r.Route("/api", func(r chi.Router) {
 
-		r.Route("/test", func(r chi.Router) {
-			r.Use(middlewareHandler.Authorization)
-
-			r.Get("/super", h.GetUserDetails)
+		r.Route("/users", func(r chi.Router) {
+			r.Post("/", h.CreateUser)
+			r.With(middlewareHandler.Authentication).Get("/", h.GetUserDetails)
 		})
 	})
 }

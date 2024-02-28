@@ -1,9 +1,30 @@
 basePath: /api
 definitions:
+  api.ErrorResponse:
+    properties:
+      message:
+        type: string
+      responseCode:
+        type: integer
+    type: object
   api.UserDetailsResponse:
     properties:
       favouriteNumber:
         type: integer
+      username:
+        type: string
+    type: object
+  api.UserDto:
+    properties:
+      id:
+        type: string
+      username:
+        type: string
+    type: object
+  handlers.CreateUserRequest:
+    properties:
+      password:
+        type: string
       username:
         type: string
     type: object
@@ -14,7 +35,7 @@ info:
   title: Your API Title
   version: "1.0"
 paths:
-  /test/super:
+  /users:
     get:
       consumes:
       - application/json
@@ -35,6 +56,36 @@ paths:
       security:
       - basicAuth: []
       summary: Get user details
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: This API endpoint creates a new user with the provided username
+        and password.
+      parameters:
+      - description: User details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User created successfully
+          schema:
+            $ref: '#/definitions/api.UserDto'
+        "400":
+          description: Invalid request format or parameters
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: Create a new user
       tags:
       - users
 securityDefinitions:

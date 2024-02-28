@@ -12,17 +12,13 @@ type UserDetailsResponse struct {
 	FavouriteNumber int    `json:"favouriteNumber"`
 }
 
-type Error struct {
+type ErrorResponse struct {
 	Message      string `json:"message"`
 	ResponseCode int    `json:"responseCode"`
 }
 
-func (e Error) Error() string {
-	return e.Message
-}
-
 func writeError(w http.ResponseWriter, message string, code int) {
-	response := Error{
+	response := ErrorResponse{
 		Message:      message,
 		ResponseCode: code,
 	}
@@ -49,5 +45,7 @@ var InternalErrorHandler = func(w http.ResponseWriter, err error) {
 var NotFoundErrorHandler = func(w http.ResponseWriter, err error) {
 	writeError(w, err.Error(), http.StatusNotFound)
 }
+
+var UnAuthorizedError = errors.New("Unauthorized")
 
 var NotFoundError = errors.New("Not Found")
