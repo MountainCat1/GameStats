@@ -5,5 +5,5 @@ import (
 )
 
 type Handler struct {
-	UserRepo repositories.IUserDetailsRepo
+	UserRepo repositories.IUserRepo
 }

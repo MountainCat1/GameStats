@@ -8,19 +8,10 @@ import (
 	"gorm.io/gorm"
 )
 
-type gormDb struct {
-	DB *gorm.DB
-}
-
 var ErrInvalidDatabaseProvider = errors.New("invalid database provider")
 
-func (d *gormDb) SetupDatabase(cfg Config) error {
-	db, err := NewGormDb(cfg)
-	if err != nil {
-		return err
-	}
-
-	err = db.AutoMigrate(&entities.LoginDetails{})
+func MigrateGormDb(db *gorm.DB, cfg Config) error {
+	err := db.AutoMigrate(&entities.LoginDetails{})
 	if err != nil {
 		return err
 	}
@@ -29,8 +20,6 @@ func (d *gormDb) SetupDatabase(cfg Config) error {
 	if err != nil {
 		return err
 	}
-
-	d.DB = db
 
 	return nil
 }

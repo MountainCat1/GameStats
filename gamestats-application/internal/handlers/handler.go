@@ -10,7 +10,7 @@ import (
 )
 
 type Handler struct {
-	UserRepo repositories.IUserDetailsRepo
+	UserRepo repositories.IUserRepo
 }
 
 func (h *Handler) Handle(r *chi.Mux) {

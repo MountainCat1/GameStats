@@ -30,11 +30,11 @@ func main() {
 
 	var r *chi.Mux = chi.NewRouter()
 
-	database, err := infrastructure.NewDatabase(config)
+	database, err := infrastructure.NewNoSqlDatabase(config)
 	if err != nil {
 		log.Fatal(err)
 	}
-	userRepo := infrastructure.NewUserRepo(database)
+	userRepo := infrastructure.NewUserRepository(database)
 
 	var handler = handlers.Handler{
 		UserRepo: userRepo,

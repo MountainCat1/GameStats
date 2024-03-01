@@ -8,23 +8,23 @@ import (
 )
 
 type UserRepo struct {
-	db *Database
+	db *gorm.DB
 }
 
 func (repo *UserRepo) AddUser(user *entities.User) (error, *entities.User) {
-	tx := repo.db.DB.Create(user)
+	tx := repo.db.Create(user)
 	if tx.Error != nil {
 		return fmt.Errorf("failed to add user: %w", tx.Error), nil
 	}
 	return nil, user
 }
 
-func NewUserRepo(db *Database) *UserRepo {
+func NewUserRepo(db *gorm.DB) *UserRepo {
 	return &UserRepo{db: db}
 }
 
 func (repo *UserRepo) GetUserLoginDetails(username string) (*entities.LoginDetails, error) {
-	db := repo.db.DB
+	db := repo.db
 
 	var loginDetails entities.LoginDetails
 	err := db.First(&loginDetails, "username = ?", username).Error
