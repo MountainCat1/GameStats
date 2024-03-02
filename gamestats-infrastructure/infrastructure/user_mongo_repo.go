@@ -1,8 +1,8 @@
 package infrastructure
 
 import (
+	domain "gamestats-domain"
 	"gamestats-domain/entities"
-	"gamestats-domain/repositories"
 )
 
 import (
@@ -17,8 +17,8 @@ type userRepository struct {
 	collection *mongo.Collection
 }
 
-func (r *userRepository) GetUserLoginDetails(username string) (*entities.LoginDetails, error) {
-	user, err := r.GetUserByUsername(username)
+func (repo *userRepository) GetUserLoginDetails(username string) (*entities.LoginDetails, error) {
+	user, err := repo.GetUserByUsername(username)
 	if err != nil {
 		return nil, err
 	}
@@ -26,18 +26,18 @@ func (r *userRepository) GetUserLoginDetails(username string) (*entities.LoginDe
 }
 
 // NewUserRepository creates a new instance of UserRepository
-func NewUserRepository(db *mongo.Database) repositories.IUserRepo {
+func NewUserRepository(db *mongo.Database) domain.UserRepo {
 	return &userRepository{
 		collection: db.Collection("users"),
 	}
 }
 
 // AddUser inserts a new User document into the MongoDB
-func (r *userRepository) AddUser(user *entities.User) (error, *entities.User) {
+func (repo *userRepository) AddUser(user *entities.User) (error, *entities.User) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	_, err := r.collection.InsertOne(ctx, user)
+	_, err := repo.collection.InsertOne(ctx, user)
 	if err != nil {
 		return err, nil
 	}
@@ -46,13 +46,13 @@ func (r *userRepository) AddUser(user *entities.User) (error, *entities.User) {
 }
 
 // GetUserByUsername finds a User document by username
-func (r *userRepository) GetUserByUsername(username string) (*entities.User, error) {
+func (repo *userRepository) GetUserByUsername(username string) (*entities.User, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	var user entities.User
 	filter := bson.M{"username": username}
-	err := r.collection.FindOne(ctx, filter).Decode(&user)
+	err := repo.collection.FindOne(ctx, filter).Decode(&user)
 	if err != nil {
 		return nil, err
 	}

@@ -1,9 +1,10 @@
 package middleware
 
 import (
-	"gamestats-domain/repositories"
+	"gamestats-domain"
 )
 
 type Handler struct {
-	UserRepo repositories.IUserRepo
+	UserRepo  domain.UserRepo
+	MatchRepo domain.MatchRepo
 }

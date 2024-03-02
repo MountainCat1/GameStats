@@ -30,17 +30,9 @@ func main() {
 
 	var r *chi.Mux = chi.NewRouter()
 
-	database, err := infrastructure.NewNoSqlDatabase(config)
-	if err != nil {
-		log.Fatal(err)
-	}
-	userRepo := infrastructure.NewUserRepository(database)
+	var handler = handlers.ConstructHandler(config)
 
-	var handler = handlers.Handler{
-		UserRepo: userRepo,
-	}
-
-	(&handler).Handle(r)
+	handler.Handle(r)
 
 	log.Info("Starting API on port", config.Server.Port, "...")
 

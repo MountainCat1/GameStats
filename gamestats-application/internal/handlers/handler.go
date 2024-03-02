@@ -3,14 +3,34 @@ package handlers
 import (
 	_ "gamestats-application/docs"
 	"gamestats-application/internal/middleware"
-	"gamestats-domain/repositories"
+	domain "gamestats-domain"
+	"gamestats-intrastructure/infrastructure"
+	"gamestats-intrastructure/repositories"
 	"github.com/go-chi/chi"
 	chimiddleware "github.com/go-chi/chi/middleware"
+	log "github.com/sirupsen/logrus"
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 type Handler struct {
-	UserRepo repositories.IUserRepo
+	UserRepo  domain.UserRepo
+	MatchRepo domain.MatchRepo
+}
+
+func ConstructHandler(config infrastructure.Config) *Handler {
+
+	database, err := infrastructure.NewNoSqlDatabase(config)
+	if err != nil {
+		log.Fatal(err)
+	}
+	userRepo := infrastructure.NewUserRepository(database)
+
+	matchRepo := repositories.MewMatchRepository(database)
+
+	return &Handler{
+		UserRepo:  userRepo,
+		MatchRepo: matchRepo,
+	}
 }
 
 func (h *Handler) Handle(r *chi.Mux) {
