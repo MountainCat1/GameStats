@@ -11,10 +11,13 @@ type User struct {
 }
 
 func CreateUser(username, passwordHash string) *User {
+	id := uuid.New().String()
+
 	return &User{
-		Id:       uuid.New().String(),
+		Id:       id,
 		Username: username,
 		LoginDetails: LoginDetails{
+			UserID:         id,
 			Username:       username,
 			HashedPassword: passwordHash,
 		},
