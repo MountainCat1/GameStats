@@ -15,7 +15,7 @@ import (
 // @Accept  json
 // @Produce  json
 // @Param username query string true "Username"
-// @Success 200 {object} api.UserDetailsResponse
+// @Success 200 {object} api.UserDto
 // @Security basicAuth
 // @Router /users [get]
 func (h *Handler) GetUserDetails(w http.ResponseWriter, r *http.Request) {
@@ -29,21 +29,19 @@ func (h *Handler) GetUserDetails(w http.ResponseWriter, r *http.Request) {
 	var username string = r.URL.Query().Get("username")
 
 	// Call GetUserLoginDetails directly on the pointer
-	loginDetails, err := h.UserRepo.GetUserLoginDetails(username)
+	user, err := h.UserRepo.GetUserByUsername(username)
 	if err != nil {
 		api.RequestErrorHandler(w, err)
 		return
 	}
 
-	if loginDetails == nil {
+	if user == nil {
 		api.NotFoundErrorHandler(w, api.NotFoundError)
 		return
 	}
 
-	// No need to use the dereference operator as loginDetails is already a pointer
-	var response = api.UserDetailsResponse{
-		Username: loginDetails.Username,
-	}
+	// No need to use the dereference operator as user is already a pointer
+	var response = api.ToUserDto(user)
 
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(response)

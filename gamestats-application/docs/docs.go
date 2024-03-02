@@ -47,7 +47,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.UserDetailsResponse"
+                            "$ref": "#/definitions/api.UserDto"
                         }
                     }
                 }
@@ -107,17 +107,6 @@ const docTemplate = `{
                 },
                 "responseCode": {
                     "type": "integer"
-                }
-            }
-        },
-        "api.UserDetailsResponse": {
-            "type": "object",
-            "properties": {
-                "favouriteNumber": {
-                    "type": "integer"
-                },
-                "username": {
-                    "type": "string"
                 }
             }
         },

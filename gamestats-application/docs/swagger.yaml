@@ -7,13 +7,6 @@ definitions:
       responseCode:
         type: integer
     type: object
-  api.UserDetailsResponse:
-    properties:
-      favouriteNumber:
-        type: integer
-      username:
-        type: string
-    type: object
   api.UserDto:
     properties:
       id:
@@ -52,7 +45,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.UserDetailsResponse'
+            $ref: '#/definitions/api.UserDto'
       security:
       - basicAuth: []
       summary: Get user details

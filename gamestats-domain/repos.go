@@ -9,5 +9,6 @@ type MatchRepo interface {
 
 type UserRepo interface {
 	GetUserLoginDetails(username string) (*entities.LoginDetails, error)
+	GetUserByUsername(username string) (*entities.User, error)
 	AddUser(user *entities.User) (error, *entities.User)
 }
