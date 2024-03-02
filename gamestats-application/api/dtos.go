@@ -1,6 +1,31 @@
 package api
 
+import "gamestats-domain/entities"
+
 type UserDto struct {
 	Id       string `json:"id"`
 	Username string `json:"username"`
+}
+
+func ToUserDto(user *entities.User) *UserDto {
+	return &UserDto{
+		Id:       user.Id,
+		Username: user.Username,
+	}
+}
+
+type MatchDto struct {
+	ID          string `json:"id"`
+	DateStarted string `json:"dateStarted"`
+	DateEnded   string `json:"dateEnded"`
+	MatchType   string `json:"matchType"`
+}
+
+func ToMatchDto(matchDetails *entities.MatchDetails) *MatchDto {
+	return &MatchDto{
+		ID:          matchDetails.ID,
+		DateStarted: matchDetails.DateStarted,
+		DateEnded:   matchDetails.DateEnded,
+		MatchType:   matchDetails.MatchType,
+	}
 }
