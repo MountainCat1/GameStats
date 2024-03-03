@@ -48,10 +48,7 @@ func (h *Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 		api.InternalErrorHandler(w, err)
 	}
 
-	var response = api.UserDto{
-		Username: user.Username,
-		Id:       user.Id,
-	}
+	var response = api.ToUserDto(user)
 
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(response)
