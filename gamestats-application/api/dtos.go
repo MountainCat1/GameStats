@@ -15,10 +15,10 @@ func ToUserDto(user *entities.User) *UserDto {
 }
 
 type MatchDto struct {
-	ID          string `json:"id"`
-	DateStarted string `json:"dateStarted"`
-	DateEnded   string `json:"dateEnded"`
-	MatchType   string `json:"matchType"`
+	ID          string             `json:"id"`
+	DateStarted string             `json:"dateStarted"`
+	DateEnded   string             `json:"dateEnded"`
+	MatchType   entities.MatchType `json:"matchType"`
 }
 
 func ToMatchDto(matchDetails *entities.MatchDetails) *MatchDto {

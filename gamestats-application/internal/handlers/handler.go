@@ -48,6 +48,11 @@ func (h *Handler) Handle(r *chi.Mux) {
 			r.Post("/", h.CreateUser)
 			r.With(middlewareHandler.Authentication).Get("/", h.GetUserDetails)
 		})
+
+		r.Route("/matches", func(r chi.Router) {
+			r.Post("/", h.CreateMatch)
+			r.With(middlewareHandler.Authentication).Post("/", h.CreateMatch)
+		})
 	})
 }
 

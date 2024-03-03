@@ -16,6 +16,56 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/matches": {
+            "post": {
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "matches"
+                ],
+                "summary": "Create new match entry",
+                "parameters": [
+                    {
+                        "description": "Match details",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_handlers.CreateMatchRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Match created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/api.MatchDto"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request format or parameters",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/users": {
             "get": {
                 "security": [
@@ -71,7 +121,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handlers.CreateUserRequest"
+                            "$ref": "#/definitions/internal_handlers.CreateUserRequest"
                         }
                     }
                 ],
@@ -110,6 +160,23 @@ const docTemplate = `{
                 }
             }
         },
+        "api.MatchDto": {
+            "type": "object",
+            "properties": {
+                "dateEnded": {
+                    "type": "string"
+                },
+                "dateStarted": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "matchType": {
+                    "$ref": "#/definitions/entities.MatchType"
+                }
+            }
+        },
         "api.UserDto": {
             "type": "object",
             "properties": {
@@ -121,7 +188,27 @@ const docTemplate = `{
                 }
             }
         },
-        "handlers.CreateUserRequest": {
+        "entities.MatchType": {
+            "type": "integer",
+            "enum": [
+                0
+            ],
+            "x-enum-comments": {
+                "Normal": "iota is 0"
+            },
+            "x-enum-varnames": [
+                "Normal"
+            ]
+        },
+        "internal_handlers.CreateMatchRequest": {
+            "type": "object",
+            "properties": {
+                "matchType": {
+                    "$ref": "#/definitions/entities.MatchType"
+                }
+            }
+        },
+        "internal_handlers.CreateUserRequest": {
             "type": "object",
             "properties": {
                 "password": {

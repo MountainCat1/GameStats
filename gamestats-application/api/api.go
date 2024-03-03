@@ -3,6 +3,7 @@ package api
 import (
 	"encoding/json"
 	"errors"
+	"gamestats-domain/entities"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 )
@@ -49,3 +50,5 @@ var NotFoundErrorHandler = func(w http.ResponseWriter, err error) {
 var UnAuthorizedError = errors.New("Unauthorized")
 
 var NotFoundError = errors.New("Not Found")
+
+var _ = entities.Normal

@@ -7,6 +7,17 @@ definitions:
       responseCode:
         type: integer
     type: object
+  api.MatchDto:
+    properties:
+      dateEnded:
+        type: string
+      dateStarted:
+        type: string
+      id:
+        type: string
+      matchType:
+        $ref: '#/definitions/entities.MatchType'
+    type: object
   api.UserDto:
     properties:
       id:
@@ -14,7 +25,20 @@ definitions:
       username:
         type: string
     type: object
-  handlers.CreateUserRequest:
+  entities.MatchType:
+    enum:
+    - 0
+    type: integer
+    x-enum-comments:
+      Normal: iota is 0
+    x-enum-varnames:
+    - Normal
+  internal_handlers.CreateMatchRequest:
+    properties:
+      matchType:
+        $ref: '#/definitions/entities.MatchType'
+    type: object
+  internal_handlers.CreateUserRequest:
     properties:
       password:
         type: string
@@ -28,6 +52,37 @@ info:
   title: Your API Title
   version: "1.0"
 paths:
+  /matches:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Match details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handlers.CreateMatchRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Match created successfully
+          schema:
+            $ref: '#/definitions/api.MatchDto'
+        "400":
+          description: Invalid request format or parameters
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - basicAuth: []
+      summary: Create new match entry
+      tags:
+      - matches
   /users:
     get:
       consumes:
@@ -62,7 +117,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/handlers.CreateUserRequest'
+          $ref: '#/definitions/internal_handlers.CreateUserRequest'
       produces:
       - application/json
       responses:
