@@ -1,5 +1,10 @@
 package entities
 
+import (
+	"github.com/google/uuid"
+	"time"
+)
+
 type MatchType int
 
 const (
@@ -8,13 +13,16 @@ const (
 
 type MatchDetails struct {
 	ID          string    `json:"id"`
-	DateStarted string    `json:"dateStarted"`
-	DateEnded   string    `json:"dateEnded"`
+	DateStarted time.Time `json:"dateStarted"`
+	DateEnded   time.Time `json:"dateEnded"`
 	MatchType   MatchType `json:"matchType"`
 }
 
-func CreateMatch(matchType MatchType) *MatchDetails {
+func CreateMatch(matchType MatchType, started time.Time, ended time.Time) *MatchDetails {
 	return &MatchDetails{
-		MatchType: matchType,
+		ID:          uuid.NewString(),
+		MatchType:   matchType,
+		DateStarted: started,
+		DateEnded:   ended,
 	}
 }

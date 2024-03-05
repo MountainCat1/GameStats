@@ -18,9 +18,12 @@ import (
 	"github.com/go-chi/chi"
 	log "github.com/sirupsen/logrus"
 	"net/http"
+	"time"
 )
 
 func main() {
+	fmt.Println(time.Now())
+
 	log.SetReportCaller(true)
 
 	config, err := infrastructure.LoadConfig()

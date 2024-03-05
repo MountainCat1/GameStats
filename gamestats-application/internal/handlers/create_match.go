@@ -40,7 +40,11 @@ func (h *Handler) CreateMatch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	match := entities.CreateMatch(requestBody.MatchType)
+	match := entities.CreateMatch(
+		requestBody.MatchType,
+		requestBody.DateStarted,
+		requestBody.DateEnded,
+	)
 
 	err, match = h.MatchRepo.AddMatchDetails(match)
 	if err != nil {

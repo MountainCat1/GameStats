@@ -244,6 +244,12 @@ const docTemplate = `{
         "internal_handlers.CreateMatchRequest": {
             "type": "object",
             "properties": {
+                "dateEnded": {
+                    "type": "string"
+                },
+                "dateStarted": {
+                    "type": "string"
+                },
                 "matchType": {
                     "$ref": "#/definitions/entities.MatchType"
                 }

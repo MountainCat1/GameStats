@@ -35,6 +35,10 @@ definitions:
     - Normal
   internal_handlers.CreateMatchRequest:
     properties:
+      dateEnded:
+        type: string
+      dateStarted:
+        type: string
       matchType:
         $ref: '#/definitions/entities.MatchType'
     type: object
