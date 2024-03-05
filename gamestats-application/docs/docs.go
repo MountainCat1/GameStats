@@ -215,6 +215,29 @@ const docTemplate = `{
                 },
                 "matchType": {
                     "$ref": "#/definitions/entities.MatchType"
+                },
+                "playerStats": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/api.PlayerStatsDto"
+                    }
+                }
+            }
+        },
+        "api.PlayerStatsDto": {
+            "type": "object",
+            "properties": {
+                "deaths": {
+                    "type": "integer"
+                },
+                "kills": {
+                    "type": "integer"
+                },
+                "playerId": {
+                    "type": "string"
+                },
+                "score": {
+                    "type": "integer"
                 }
             }
         },

@@ -17,6 +17,21 @@ definitions:
         type: string
       matchType:
         $ref: '#/definitions/entities.MatchType'
+      playerStats:
+        items:
+          $ref: '#/definitions/api.PlayerStatsDto'
+        type: array
+    type: object
+  api.PlayerStatsDto:
+    properties:
+      deaths:
+        type: integer
+      kills:
+        type: integer
+      playerId:
+        type: string
+      score:
+        type: integer
     type: object
   api.UserDto:
     properties:

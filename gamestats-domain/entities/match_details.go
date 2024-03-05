@@ -1,6 +1,7 @@
 package entities
 
 import (
+	"gamestats-domain/value_types"
 	"github.com/google/uuid"
 	"time"
 )
@@ -16,6 +17,8 @@ type MatchDetails struct {
 	DateStarted time.Time `json:"dateStarted"`
 	DateEnded   time.Time `json:"dateEnded"`
 	MatchType   MatchType `json:"matchType"`
+
+	PlayerStats []*value_types.PlayerStats `json:"playerStats"`
 }
 
 func CreateMatch(matchType MatchType, started time.Time, ended time.Time) *MatchDetails {
