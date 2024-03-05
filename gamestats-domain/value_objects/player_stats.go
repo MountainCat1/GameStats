@@ -1,4 +1,4 @@
-package value_types
+package value_objects
 
 type PlayerStats struct {
 	PlayerId string `json:"playerId"`

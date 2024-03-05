@@ -2,7 +2,7 @@ package api
 
 import (
 	"gamestats-domain/entities"
-	"gamestats-domain/value_types"
+	"gamestats-domain/value_objects"
 	"time"
 )
 
@@ -48,7 +48,7 @@ type PlayerStatsDto struct {
 	Score    int    `json:"score"`
 }
 
-func ToPlayerStatsDto(playerStats *value_types.PlayerStats) *PlayerStatsDto {
+func ToPlayerStatsDto(playerStats *value_objects.PlayerStats) *PlayerStatsDto {
 	return &PlayerStatsDto{
 		PlayerId: playerStats.PlayerId,
 		Kills:    playerStats.Kills,
