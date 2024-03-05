@@ -21,6 +21,24 @@ func MewMatchRepository(db *mongo.Database) domain.MatchRepo {
 	}
 }
 
+func (repo MongoDbMatchRepo) GetAll() (error, []*entities.MatchDetails) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	cursor, err := repo.collection.Find(ctx, bson.M{})
+	if err != nil {
+		return err, nil
+	}
+
+	var matches []*entities.MatchDetails
+	err = cursor.All(ctx, &matches)
+	if err != nil {
+		return err, nil
+	}
+
+	return nil, matches
+}
+
 func (repo MongoDbMatchRepo) GetMatchDetails(matchID string) (*entities.MatchDetails, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()

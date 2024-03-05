@@ -5,6 +5,7 @@ import "gamestats-domain/entities"
 type MatchRepo interface {
 	GetMatchDetails(matchID string) (*entities.MatchDetails, error)
 	AddMatchDetails(matchDetails *entities.MatchDetails) (error, *entities.MatchDetails)
+	GetAll() (error, []*entities.MatchDetails)
 }
 
 type UserRepo interface {

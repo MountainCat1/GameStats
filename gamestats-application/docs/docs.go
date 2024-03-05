@@ -17,6 +17,41 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/matches": {
+            "get": {
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "description": "get details of a matches",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "matches"
+                ],
+                "summary": "Get match details",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/api.MatchDto"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized access",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            },
             "post": {
                 "security": [
                     {
@@ -134,6 +169,12 @@ const docTemplate = `{
                     },
                     "400": {
                         "description": "Invalid request format or parameters",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized access",
                         "schema": {
                             "$ref": "#/definitions/api.ErrorResponse"
                         }

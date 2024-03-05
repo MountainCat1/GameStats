@@ -53,6 +53,28 @@ info:
   version: "1.0"
 paths:
   /matches:
+    get:
+      consumes:
+      - application/json
+      description: get details of a matches
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/api.MatchDto'
+            type: array
+        "401":
+          description: Unauthorized access
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - basicAuth: []
+      summary: Get match details
+      tags:
+      - matches
     post:
       consumes:
       - application/json
@@ -127,6 +149,10 @@ paths:
             $ref: '#/definitions/api.UserDto'
         "400":
           description: Invalid request format or parameters
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "401":
+          description: Unauthorized access
           schema:
             $ref: '#/definitions/api.ErrorResponse'
         "500":

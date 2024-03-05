@@ -23,6 +23,7 @@ type CreateUserRequest struct {
 // @Produce json
 // @Param request body CreateUserRequest true "User details"
 // @Success 200 {object} api.UserDto "User created successfully"
+// @Success 401 {object} api.ErrorResponse "Unauthorized access"
 // @Failure 400 {object} api.ErrorResponse "Invalid request format or parameters"
 // @Failure 500 {object} api.ErrorResponse "Internal server error"
 // @Router /users [post]

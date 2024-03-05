@@ -7,10 +7,13 @@ import (
 	"gamestats-domain/entities"
 	log "github.com/sirupsen/logrus"
 	"net/http"
+	"time"
 )
 
 type CreateMatchRequest struct {
-	MatchType entities.MatchType `json:"matchType"`
+	MatchType   entities.MatchType `json:"matchType"`
+	DateStarted time.Time          `json:"dateStarted"`
+	DateEnded   time.Time          `json:"dateEnded"`
 }
 
 // CreateMatch handles the creation of a new user.
