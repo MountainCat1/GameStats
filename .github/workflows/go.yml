@@ -31,11 +31,11 @@ jobs:
     - name: Build
       run: |
         cd gamestats-application/cmd/api
-        go build -v -o /output .
+        go build -v -o ./output .
         
     - name: Upload Artifact
       uses: actions/upload-artifact@v4.3.1
       with:
         name: static-content
-        path: /output/*
+        path: ./output/*
           
