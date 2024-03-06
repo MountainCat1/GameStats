@@ -31,11 +31,11 @@ jobs:
     - name: Build
       run: |
         cd gamestats-application/cmd/api
-        go build -v -o ./publish/gamestats .
+        go build -v -o /build/app/publish/gamestats .
         
     - name: Upload Artifact
       uses: actions/upload-artifact@v4.3.1
       with:
         name: binary
-        path: build/app/gamestats-application/cmd/api/publish/*
+        path: /build/app/publish/*
           
