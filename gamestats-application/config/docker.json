@@ -4,6 +4,6 @@
   },
   "database": {
     "provider": "mongodb",
-    "connectionString": "mongodb://admin:admin@localhost:27017/gamestats"
+    "connectionString": "mongodb://admin:admin@mongodb:27017/gamestats"
   }
 }
